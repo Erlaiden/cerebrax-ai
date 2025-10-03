@@ -3,12 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default function RootLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: 'lime',
-        headerShown: false,
-      }}
-    >
+    <Tabs screenOptions={{ tabBarActiveTintColor: 'lime', headerShown: false }}>
       <Tabs.Screen
         name="(tabs)"
         options={{
@@ -19,9 +14,9 @@ export default function RootLayout() {
         }}
       />
       <Tabs.Screen
-        name="ai-test"
+        name="ai-engine-test"
         options={{
-          title: 'AI Test',
+          title: 'AI Engine',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="sparkles-outline" color={color} size={size} />
           ),

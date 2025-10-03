@@ -2,36 +2,30 @@ import { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import AIEngine from '../src/ai/AIEngine';
 
-export default function AIEngineTestScreen() {
-  const [backend, setBackend] = useState<string>('init...');
-  const [result, setResult] = useState<any>(null);
+export default function AIEngineTest() {
+  const [backend, setBackend] = useState('init...');
+  const [out, setOut] = useState<any>(null);
 
   useEffect(() => {
-    AIEngine.init().then(info => {
-      setBackend(info.backend);
-      console.log('AIEngine backend:', info.backend);
-    });
+    AIEngine.init().then(i => setBackend(i.backend));
   }, []);
 
-  const handleRun = async () => {
-    const input = [0.1, 0.5, -0.3, 0.7];
-    const out = await AIEngine.predict(input);
-    setResult(out);
-    console.log('AIEngine result:', out);
+  const run = async () => {
+    const res = await AIEngine.predict([0.12, -0.3, 0.5, 0.9, -0.1, 0.2]);
+    setOut(res);
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>CerebraX AIEngine Test</Text>
+    <View style={s.c}>
+      <Text style={s.t}>CerebraX AIEngine Test</Text>
       <Text>Backend: {backend}</Text>
-      <Button title="Прогнать инференс" onPress={handleRun} />
-      {result && <Text style={styles.result}>{JSON.stringify(result)}</Text>}
+      <Button title="Run inference" onPress={run} />
+      {out && <Text style={s.r}>{JSON.stringify(out)}</Text>}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 16 },
-  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 20 },
-  result: { marginTop: 20, fontSize: 14, color: 'lime' },
+const s = StyleSheet.create({
+  c:{flex:1,justifyContent:'center',alignItems:'center',padding:16},
+  t:{fontSize:20,fontWeight:'bold',marginBottom:12},
+  r:{marginTop:12,fontSize:12}
 });
